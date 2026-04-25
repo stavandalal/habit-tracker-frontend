@@ -1,5 +1,10 @@
+import CreateHabit from "./CreateHabit";
+
 function App() {
-  return <h1>Habit Tracker</h1>;
+  return (
+  <CreateHabit />
+  )
+
 }
 
 export default App;

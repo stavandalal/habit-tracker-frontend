@@ -1,8 +1,13 @@
-import CreateHabit from "./CreateHabit";
+import CreateHabit from "./component/CreateHabit";
+import HabitList from "./component/HabitList";
+
 
 function App() {
   return (
-  <CreateHabit />
+    <div>
+      <CreateHabit />
+      <HabitList />
+    </div>
   )
 
 }

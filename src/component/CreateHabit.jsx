@@ -19,6 +19,8 @@ const CreateHabit = () => {
             console.log("Response: ", response.data)
             alert('Habit created successfully!');
 
+            window.location.reload();
+
             //reset form
             setName('');
             setDescription('');

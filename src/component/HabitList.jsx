@@ -2,21 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { FaFire } from "react-icons/fa";
 
-export default function HabitList() {
-  const [habits, setHabits] = useState([]);
-
-  const fetchHabits = async () => {
-    try {
-      const res = await axios.get("http://localhost:8080/api/habits");
-      setHabits(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchHabits();
-  }, []);
+export default function HabitList({ habits }) {
 
   return (
     <div className="bg-gray-700 p-8">

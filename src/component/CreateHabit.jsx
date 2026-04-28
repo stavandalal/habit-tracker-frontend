@@ -3,7 +3,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { FaPlus } from 'react-icons/fa';
 
-const CreateHabit = () => {
+const CreateHabit = ({ fetchHabits }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [frequency, setFrequency] = useState('DAILY');
@@ -28,11 +28,12 @@ if(!name.trim()){
 
             toast.success('Habit created successfully!');
 
+            await fetchHabits();
+
             setName('');
             setDescription('');
             setFrequency('DAILY');
 
-            
 
         }catch(error){
             console.error("Error creating habit: ", error);

@@ -72,9 +72,14 @@ const handleComplete = async (id) => {
     <div className="flex gap-3">
     <button
   onClick={() => handleComplete(habit.id)}
-  className="bg-green-500 px-3 py-1 rounded"
+  disabled={habit.completedToday}
+  className={`px-3 py-1 rounded ${
+    habit.completedToday
+      ? "bg-gray-500 cursor-not-allowed"
+      : "bg-green-500"
+  }`}
 >
-  Mark Done Today
+  {habit.completedToday ? "Completed" : "Mark Done"}
 </button>
 
       <button

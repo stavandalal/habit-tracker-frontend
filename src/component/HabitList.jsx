@@ -17,18 +17,38 @@ export default function HabitList({ habits, fetchHabits }) {
   };  
 
 
-  const handleDelete = async (id) => {
-  const confirmDelete = window.confirm("Delete this habit?");
-  if (!confirmDelete) return;
+  const handleDelete = (id) => {
+  toast((t) => (
+    <div className="flex flex-col gap-2">
+      <span className="text-sm">Delete this habit?</span>
 
-  try {
-    await axios.delete(`http://localhost:8080/api/habits/${id}`);
-    await fetchHabits();
-    toast.success("Habit deleted");
-  } catch (err) {
-    console.error(err);
-    toast.error("Failed to delete habit");
-  }
+      <div className="flex justify-end gap-2">
+        <button
+          onClick={async () => {
+            try {
+              await axios.delete(`http://localhost:8080/api/habits/${id}`);
+              await fetchHabits();
+              toast.success("Habit deleted");
+            } catch (err) {
+              console.error(err);
+              toast.error("Failed to delete habit");
+            }
+            toast.dismiss(t.id);
+          }}
+          className="bg-red-500 text-white px-3 py-1 rounded"
+        >
+          Yes
+        </button>
+
+        <button
+          onClick={() => toast.dismiss(t.id)}
+          className="bg-gray-500 text-white px-3 py-1 rounded"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  ));
 };
 
   return (

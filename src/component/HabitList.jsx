@@ -4,19 +4,15 @@ import toast from "react-hot-toast";
 import { FaFire, FaTrash } from "react-icons/fa";
 
 export default function HabitList({ habits, fetchHabits }) {
-
-  const handleToggle = async (id) => {
-    try {
-      await axios.put(`http://localhost:8080/api/habits/${id}/toggle`);
-      await fetchHabits();
-      toast.success("Habit toggled successfully");
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to toggle habit");
-    }
-  };  
-
-
+const handleComplete = async (id) => {
+  try {
+    await axios.post(`http://localhost:8080/api/habits/${id}/complete`);
+    await fetchHabits();
+    toast.success("Marked done for today");
+  } catch (err) {
+    toast.error("Failed to mark complete");
+  }
+};
   const handleDelete = (id) => {
   toast((t) => (
     <div className="flex flex-col gap-2">
@@ -74,12 +70,12 @@ export default function HabitList({ habits, fetchHabits }) {
     </div>
 
     <div className="flex gap-3">
-      <button
-        onClick={() => handleToggle(habit.id)}
-        className="bg-green-500 px-3 py-1 rounded"
-      >
-        {habit.active ? "Complete" : "Undo"}
-      </button>
+    <button
+  onClick={() => handleComplete(habit.id)}
+  className="bg-green-500 px-3 py-1 rounded"
+>
+  Mark Done Today
+</button>
 
       <button
         onClick={() => handleDelete(habit.id)}

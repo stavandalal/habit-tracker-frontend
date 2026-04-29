@@ -3,7 +3,7 @@ import axios from "axios";
 import { FaFire } from "react-icons/fa";
 import toast from "react-hot-toast";
 
-export default function HabitList({ habits }) {
+export default function HabitList({ habits, fetchHabits }) {
 
   const handleToggle = async (id) => {
     try {

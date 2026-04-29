@@ -25,7 +25,7 @@ function App() {
   return (
     <div>
       <CreateHabit fetchHabits={fetchHabits} />
-      <HabitList habits={habits} />
+      <HabitList habits={habits} fetchHabits={fetchHabits} />
     </div>
   )
 

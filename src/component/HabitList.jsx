@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { FaFire } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { FaFire, FaTrash } from "react-icons/fa";
 
 export default function HabitList({ habits, fetchHabits }) {
 
@@ -16,6 +16,21 @@ export default function HabitList({ habits, fetchHabits }) {
     }
   };  
 
+
+  const handleDelete = async (id) => {
+  const confirmDelete = window.confirm("Delete this habit?");
+  if (!confirmDelete) return;
+
+  try {
+    await axios.delete(`http://localhost:8080/api/habits/${id}`);
+    await fetchHabits();
+    toast.success("Habit deleted");
+  } catch (err) {
+    console.error(err);
+    toast.error("Failed to delete habit");
+  }
+};
+
   return (
     <div className="bg-gray-700 p-8">
       <h2 className="text-xl text-white mb-4">All Habits</h2>
@@ -24,27 +39,37 @@ export default function HabitList({ habits, fetchHabits }) {
       ) : (
         <ul>
           {habits.map((habit) => (
-            <div key={habit.id}
-            className=" p-4 mb-3">
+  <div
+    key={habit.id}
+    className="p-4 mb-3 flex justify-between items-center bg-gray-800 rounded"
+  >
+    <div>
+      <h3 className="text-lg flex items-center text-white gap-2">
+        <FaFire className="text-orange-500" />
+        {habit.name}
+      </h3>
 
-              <h3 className="text-lg flex item-center text-white gap-2">
-                <FaFire className="text-orange-500"/>
-                {habit.name}
-              </h3>
+      <p className="text-gray-400">{habit.description}</p>
+      <span className="text-gray-400">{habit.frequency}</span>
+    </div>
 
-              <p className="text-gray-400">{habit.description}</p>
-               <span className="text-gray-400">{habit.frequency}</span>
+    <div className="flex gap-3">
+      <button
+        onClick={() => handleToggle(habit.id)}
+        className="bg-green-500 px-3 py-1 rounded"
+      >
+        {habit.active ? "Complete" : "Undo"}
+      </button>
 
-                 <button
-              onClick={() => handleToggle(habit.id)}
-              className="bg-green-500 px-3 py-1 rounded mt-2"
-            >
-              {habit.active ? "Mark Complete" : "Undo"}
-            </button>
-            </div>
-
-          
-          ))}
+      <button
+        onClick={() => handleDelete(habit.id)}
+        className="text-red-500 hover:text-red-600"
+      >
+        <FaTrash />
+      </button>
+    </div>
+  </div>
+))}
 
           
         </ul>

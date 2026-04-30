@@ -89,8 +89,11 @@ const handleComplete = async (id) => {
         <FaTrash />
       </button>
 
-      <p className="text-orange-400 flex items-center gap-1 mt-1">
-  🔥 {habit.streak} day streak
+    <p className="flex items-center gap-2 mt-1 text-orange-400 font-semibold">
+  🔥 {habit.streak}
+  <span className="text-gray-400 text-sm">
+    day{habit.streak !== 1 && "s"}
+  </span>
 </p>
     </div>
   </div>
